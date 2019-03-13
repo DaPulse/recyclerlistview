@@ -45,7 +45,7 @@ var ScrollViewer = /** @class */ (function (_super) {
         _this._setDivRef = function (div) {
             _this._mainDivRef = div;
             if (div) {
-                _this._scrollEventNormalizer = new ScrollEventNormalizer_1.ScrollEventNormalizer(div);
+                _this._scrollEventNormalizer = new ScrollEventNormalizer_1.ScrollEventNormalizer(div, _this.props.scrollElement);
             }
             else {
                 _this._scrollEventNormalizer = null;
@@ -65,10 +65,10 @@ var ScrollViewer = /** @class */ (function (_super) {
             }
             else {
                 if (_this.props.horizontal) {
-                    return window.scrollX;
+                    return _this.props.scrollElement.scrollLeft;
                 }
                 else {
-                    return window.scrollY;
+                    return _this.props.scrollElement.scrollTop;
                 }
             }
         };
@@ -85,10 +85,10 @@ var ScrollViewer = /** @class */ (function (_super) {
             }
             else {
                 if (_this.props.horizontal) {
-                    window.scrollTo(offset, 0);
+                    _this.props.scrollElement.scrollTo(offset, 0);
                 }
                 else {
-                    window.scrollTo(0, offset);
+                    _this.props.scrollElement.scrollTo(0, offset);
                 }
             }
         };
@@ -141,7 +141,7 @@ var ScrollViewer = /** @class */ (function (_super) {
         }
     };
     ScrollViewer.prototype.componentWillUnmount = function () {
-        window.removeEventListener("scroll", this._windowOnScroll);
+        this.props.scrollElement.removeEventListener("scroll", this._windowOnScroll);
         if (this._mainDivRef) {
             this._mainDivRef.removeEventListener("scroll", this._onScroll);
         }
@@ -189,7 +189,7 @@ var ScrollViewer = /** @class */ (function (_super) {
         }
     };
     ScrollViewer.prototype._startListeningToWindowEvents = function () {
-        window.addEventListener("scroll", this._windowOnScroll);
+        this.props.scrollElement.addEventListener("scroll", this._windowOnScroll);
         if (this.props.canChangeSize) {
             window.addEventListener("resize", this._onWindowResize);
         }
@@ -207,6 +207,7 @@ var ScrollViewer = /** @class */ (function (_super) {
         horizontal: false,
         style: null,
         useWindowScroll: false,
+        scrollElement: window,
     };
     return ScrollViewer;
 }(BaseScrollView_1.default));

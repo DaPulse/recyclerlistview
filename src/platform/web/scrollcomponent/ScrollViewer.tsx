@@ -16,6 +16,7 @@ export default class ScrollViewer extends BaseScrollView {
         horizontal: false,
         style: null,
         useWindowScroll: false,
+        scrollElement: window,
     };
 
     private _mainDivRef: HTMLDivElement | null = null;
@@ -34,7 +35,7 @@ export default class ScrollViewer extends BaseScrollView {
     }
 
     public componentWillUnmount(): void {
-        window.removeEventListener("scroll", this._windowOnScroll);
+        this.props.scrollElement.removeEventListener("scroll", this._windowOnScroll);
         if (this._mainDivRef) {
             this._mainDivRef.removeEventListener("scroll", this._onScroll);
         }
@@ -76,7 +77,7 @@ export default class ScrollViewer extends BaseScrollView {
     private _setDivRef = (div: HTMLDivElement | null): void => {
         this._mainDivRef = div;
         if (div) {
-            this._scrollEventNormalizer = new ScrollEventNormalizer(div);
+            this._scrollEventNormalizer = new ScrollEventNormalizer(div, this.props.scrollElement);
         } else {
             this._scrollEventNormalizer = null;
         }
@@ -94,9 +95,9 @@ export default class ScrollViewer extends BaseScrollView {
             return 0;
         } else {
             if (this.props.horizontal) {
-                return window.scrollX;
+                return this.props.scrollElement.scrollLeft;
             } else {
-                return window.scrollY;
+                return this.props.scrollElement.scrollTop;
             }
         }
     }
@@ -112,9 +113,9 @@ export default class ScrollViewer extends BaseScrollView {
             }
         } else {
             if (this.props.horizontal) {
-                window.scrollTo(offset, 0);
+                this.props.scrollElement.scrollTo(offset, 0);
             } else {
-                window.scrollTo(0, offset);
+                this.props.scrollElement.scrollTo(0, offset);
             }
         }
     }
@@ -164,7 +165,7 @@ export default class ScrollViewer extends BaseScrollView {
     }
 
     private _startListeningToWindowEvents(): void {
-        window.addEventListener("scroll", this._windowOnScroll);
+        this.props.scrollElement.addEventListener("scroll", this._windowOnScroll);
         if (this.props.canChangeSize) {
             window.addEventListener("resize", this._onWindowResize);
         }

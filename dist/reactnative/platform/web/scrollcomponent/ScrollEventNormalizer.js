@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 var ScrollEventNormalizer = /** @class */ (function () {
-    function ScrollEventNormalizer(target) {
+    function ScrollEventNormalizer(target, scrollElement) {
         this.divEvent = {
             nativeEvent: {
                 contentOffset: {
@@ -34,10 +34,10 @@ var ScrollEventNormalizer = /** @class */ (function () {
             nativeEvent: {
                 contentOffset: {
                     get x() {
-                        return window.scrollX === undefined ? window.pageXOffset : window.scrollX;
+                        return scrollElement.scrollLeft === undefined ? window.pageXOffset : scrollElement.scrollLeft;
                     },
                     get y() {
-                        return window.scrollY === undefined ? window.pageYOffset : window.scrollY;
+                        return scrollElement.scrollTop === undefined ? window.pageYOffset : scrollElement.scrollTop;
                     },
                 },
                 contentSize: {

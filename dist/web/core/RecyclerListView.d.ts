@@ -50,6 +50,7 @@ export interface RecyclerListViewProps {
     canChangeSize?: boolean;
     distanceFromWindow?: number;
     useWindowScroll?: boolean;
+    scrollElement?: HTMLElement;
     disableRecycling?: boolean;
     forceNonDeterministicRendering?: boolean;
     extendedState?: object;
@@ -72,6 +73,7 @@ export default class RecyclerListView<P extends RecyclerListViewProps, S extends
         onEndReachedThreshold: number;
         distanceFromWindow: number;
         renderAheadOffset: number;
+        scrollElement: Window;
     };
     static propTypes: {};
     private _virtualRenderer;

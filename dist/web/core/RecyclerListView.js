@@ -492,6 +492,7 @@ var RecyclerListView = /** @class */ (function (_super) {
         onEndReachedThreshold: 0,
         distanceFromWindow: 0,
         renderAheadOffset: IS_WEB ? 1000 : 250,
+        scrollElement: window,
     };
     RecyclerListView.propTypes = {};
     return RecyclerListView;
@@ -545,6 +546,8 @@ RecyclerListView.propTypes = {
     distanceFromWindow: PropTypes.number,
     //Web only. Layout elements in window instead of a scrollable div.
     useWindowScroll: PropTypes.bool,
+    //Web only. The scrollable div while useWindowScroll set to true.
+    scrollElement: PropTypes.object,
     //Turns off recycling. You still get progressive rendering and all other features. Good for lazy rendering. This should not be used in most cases.
     disableRecycling: PropTypes.bool,
     //Default is false, if enabled dimensions provided in layout provider will not be strictly enforced.

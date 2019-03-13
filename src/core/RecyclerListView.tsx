@@ -100,6 +100,7 @@ export interface RecyclerListViewProps {
     canChangeSize?: boolean;
     distanceFromWindow?: number;
     useWindowScroll?: boolean;
+    scrollElement?: HTMLElement;
     disableRecycling?: boolean;
     forceNonDeterministicRendering?: boolean;
     extendedState?: object;
@@ -127,6 +128,7 @@ export default class RecyclerListView<P extends RecyclerListViewProps, S extends
         onEndReachedThreshold: 0,
         distanceFromWindow: 0,
         renderAheadOffset: IS_WEB ? 1000 : 250,
+        scrollElement: window,
     };
 
     public static propTypes = {};
@@ -660,6 +662,9 @@ RecyclerListView.propTypes = {
 
     //Web only. Layout elements in window instead of a scrollable div.
     useWindowScroll: PropTypes.bool,
+
+    //Web only. The scrollable div while useWindowScroll set to true.
+    scrollElement: PropTypes.object,
 
     //Turns off recycling. You still get progressive rendering and all other features. Good for lazy rendering. This should not be used in most cases.
     disableRecycling: PropTypes.bool,

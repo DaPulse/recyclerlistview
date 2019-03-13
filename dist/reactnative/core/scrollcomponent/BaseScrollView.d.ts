@@ -8,6 +8,7 @@ export interface ScrollViewDefaultProps {
     canChangeSize: boolean;
     style?: CSSProperties | null;
     useWindowScroll: boolean;
+    scrollElement: HTMLElement;
 }
 export interface ScrollEvent {
     nativeEvent: {

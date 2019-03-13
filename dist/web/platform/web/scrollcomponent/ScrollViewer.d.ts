@@ -10,6 +10,7 @@ export default class ScrollViewer extends BaseScrollView {
         horizontal: boolean;
         style: null;
         useWindowScroll: boolean;
+        scrollElement: Window;
     };
     private _mainDivRef;
     private _isScrolling;
